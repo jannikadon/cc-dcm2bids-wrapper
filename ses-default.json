@@ -1,0 +1,36 @@
+{
+  "descriptions": [
+    {
+      "dataType": "anat",
+      "modalityLabel": "inplaneT1",
+      "customLabels": "acq-01ax02gre",
+      "criteria": {
+        "SeriesDescription": "Ax_T1_GRE_anatomy*"
+      }
+    },
+    {
+      "dataType": "anat",
+      "modalityLabel": "T1w",
+      "customLabels": "acq-01fspgr02bravo3D",
+      "criteria": {
+        "SeriesDescription": "Ax-3D-T1-FSPGR-BRAVO*"
+      }
+    },
+    {
+      "dataType": "func",
+      "modalityLabel": "bold",
+      "customLabels": "task-rest",
+      "criteria": {
+        "SeriesDescription": "fMRI_rest*"
+      }
+    },
+    {
+      "dataType": "dwi",
+      "modalityLabel": "dwi",
+      "customLabels": "acq-60dirs",
+      "criteria": {
+        "SeriesDescription": "DTI_2mm_60_Directions*"
+      }
+    }
+  ]
+}

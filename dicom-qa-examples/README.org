@@ -1,0 +1,14 @@
+#+TITLE: DICOM QA Examples
+#+AUTHOR: nikadon at gmail dot com
+
+
+
+* Slice Timing
+
+   Detailed description:
+   - [[./ge-mr750-slice-timing]]
+
+* Phase Encoding
+
+   Detailed description:
+   - [[./ge-mr750-pepolarity]]

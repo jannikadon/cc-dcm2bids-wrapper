@@ -1,0 +1,216 @@
+#+TITLE: cc-dcm2bids-wrapper.py
+#+AUTHOR: nikadon at gmail dot com
+
+#+SETUPFILE: theme-readtheorg-local.setup
+#+OPTIONS: prop:t
+
+* DONE Brief info
+
+  Convert DICOM to NIFTI (BIDS). With or w/o defacing.
+  Extract basic info from DICOM data and export it to ~org-mode~ file or ~CSV~ file.
+
+  By default DICOM data is expected to reside in directories structured like:
+  - =./dicom/sub-*/ses-*/s*/= (this /expectation/ can me modified)
+  The directory for the output defaults to:
+  - =./nifti/=
+
+* DONE Dependencies
+
+  Dependencies include:
+  - =pydicom=
+  - =pandas=
+  - =tabulate=
+  - =pprint=
+  - =argparse=
+  - =colorama=
+  - =datetime=
+  - =glob=
+  - =sys=
+  - =os=
+  - =re=
+  - =subprocess=
+  - =socket=
+
+  Conversion dependencies:
+  - =pydeface=
+  - =dcm2bids=
+
+* DONE Help
+
+  #+BEGIN_EXAMPLE
+
+usage: cc-dcm2bids-wrapper.py [-O PATH] [-D DIRECTORY] [-N DIRECTORY]
+                                      [-p] [-P PATTERN] [-e] [-E PATTERN] [-s]
+                                      [-S PATTERN] [-f]
+                                      [-F PATTERN [PATTERN ...]] [-l]
+                                      [-L FILE] [-t] [-w] [-W FILE] [-k] [-i]
+                                      [-m] [-r] [-c] [-C] [-J FILE] [-n] [-g]
+                                      [-b] [-q] [-v] [-d] [--version] [-h]
+
+cc-dcm2bids-wrapper.py:
+ - explore DICOM directories,
+ - display summaries for the data discovered,
+ - optionally convert to NIFTI (BIDS) data format.
+
+Tested on GE Discovery 750 MR scanner.
+
+cc-dcm2bids-wrapper.py is free software licensed under GPL 3.0.  Assembled from
+various code snippets found on the web by Jan Nikadon (nikadon <at>
+gmail <dot> com).
+
+
+
+optional arguments:
+  -O PATH, --origin PATH
+                        Start directory, e.g.,
+                        /home/username/study/dicom. The default is
+                        <current directory> e.g.,
+                        /home/cybercraft/cc/dev/mri/cc-custom-dcm-
+                        tools
+  -D DIRECTORY, --dicom-dir DIRECTORY
+                        DICOM (source) directory. The default is
+                        dicom
+  -N DIRECTORY, --nifti-dir DIRECTORY
+                        NIFTI (target) directory. The default is
+                        nifti
+  -p, --show-patients   Display patients (subjects) discovered.
+  -P PATTERN, --patients PATTERN
+                        Unix-like pattern that matches patient (subject)
+                        directories, e.g., p* or
+                        group-*/sub-*. The default is sub-*
+  -e, --show-exams      Display exams (sessions) discovered.
+  -E PATTERN, --exams PATTERN
+                        Unix-like pattern that matches exam (session)
+                        directories, e.g., e*. The default is
+                        ses-*
+  -s, --show-series     Display series (sequences) discovered.
+  -S PATTERN, --series PATTERN
+                        Unix-like pattern that matches series (sequence)
+                        directories, e.g., s* (which also is the
+                        default).
+  -f, --show-files      Display DICOM files discovered.
+  -F PATTERN [PATTERN ...], --files PATTERN [PATTERN ...]
+                        Unix-like pattern that matches DICOM files, e.g.,
+                        '*'. Multiple patterns are accepted. The
+                        default is 'i*MRDC*' 'i*SCPT*'.
+  -l, --log             Save log to file.
+  -L FILE, --log-file FILE
+                        Log output filename. The default is based on filename
+                        executed, hostname, date and time, i.e.,
+                        z---<executable-
+                        filename>---<hostname>---<YYYYmmdd-HH-MM-SS-
+                        sss>---log.org e.g., z---cc-dcm2bids-
+                        wrapper.py---false---20180824-180437-768---
+                        log.org.
+  -t, --table           Produce detailed table on DICOM files found. The
+                        default is False.
+  -w, --write-csv       Write DICOM information to CSV file. Implies
+                        -r.
+  -W FILE, --write-csv-file FILE
+                        File name for DICOM information to CSV. The default is
+                        basename oflog-file with '.csv' extension.
+  -k, --keep-sequence-information
+                        Keep series information in the table. The default is
+                        False
+  -i, --include-stacked-screen-saves
+                        Include series containing stacked screen saves in the
+                        table. The default is False
+  -m, --more-info       Display more information derrived from DICOM files.
+  -r, --report-files    Display slice timing related information. Implies
+                        -tkm.
+  -c, --convert-demo    Show commands used to convert discovered series
+                        (sequences) from DICOM to NIFTI format. The default is
+                        False.
+  -C, --convert         Convert discovered series (sequences) from DICOM to
+                        NIFTI format. The default is False. Implies
+                        -c.
+  -J FILE, --study-specific-json FILE
+                        Study specific JSON file dontaining series description
+                        e.g., study-specific.json. If none provided
+                        session-specific JSON file(s) are expected to be
+                        located in <current directory> with names
+                        corresponding to session(s) E.g.,
+                        ses-01pre.json, ses-02post.json ETC.
+  -n, --no-defaceing    Turn off defacing during conversion. The default is
+                        False
+  -g, --GE              Same as -P "p*" -E "e*" -S "s*"  (patterns
+                        tailored to raw data obtained from GE MR750 scanner
+                        running DV 2.4)
+  -b, --BIDS            Same as -P "sub-*" -E "ses-*" -S "*"
+                        (patterns tailored to BIDS data structure)
+  -q, --quiet           Be (quite) quiet.
+  -v, --verbose         Verbose (use multiple times to increase verbbosity up
+                        to -vvvv).
+  -d, --debug           Debug mode (use multiple times to increase debugging
+                        level up to -ddd).
+  --version             show program's version number and exit
+  -h, --help            Show this help message and exit
+
+Examples:
+
+cc-dcm2bids-wrapper.py --help
+cc-dcm2bids-wrapper.py -dm -pes -lrw -cn
+cc-dcm2bids-wrapper.py -pes
+cc-dcm2bids-wrapper.py -lr
+
+  #+END_EXAMPLE
+
+* TODO TODOs
+
+  - [ ] +add *slice timing estimation* functionality based on ~TR~ and slice position/time+
+  - [X] use the first 256 (or actually ~44) slices only (do not load whole series data)
+    - [X] make example (dummy) EPI acquisitions for:
+      - [X] sequential top/down (~sTD~)
+      - [X] sequential bottom/up (~sBU~)
+      - [X] interleaved top/down (~iTD~)
+      - [X] interleaved bottom-up (~iBU~)
+    - [X] test the above mentioned code against the above mentioned data
+  - [X] add =-v=, =-vv=, =-vvv= for increased verbosity instead of =-m= for messages (but keep the debug mode =-d=) possibly combine =-vvv= and =-d= (or provide =-dd= =-ddd=)
+  - [ ] re-think the /"Origin"/ (as it was in the previous version resulting in =./= being added at sthe beginning of each of relative paths)
+  - [ ] add files counter (for logging and printing)
+  - [ ] Assertions
+    - [ ] add checking if =*= is present at least (or exactly) once in each pattern (for patient, exam, series, files)
+    - [ ] consider checking if at any level at least one directoty/file exists (otherwise raise an error)
+
+* DONE DICOM QA Examples
+
+  - [[./dicom-qa-examples]]
+
+  DICOM QA for GE Discovery MR750 3.0T contains two mini data-sets intended for:
+  - /slice timing/ validation and
+  - /phase encoding/ validation.
+
+  Data acquired in the *Interdisciplinary Center for Modern
+  Technologies* of the *Nicolaus Copernicus University in Toruń*.
+
+** Slice Timing
+
+   Summary:
+   - eight basic variants of fMRI acquisition planning (slice order × 2, acquisition regime × 2, planning cuboid geometry × 2)
+   - six volumes per sequence, each with head movement around volume(s) =4=, =5= and =6=.
+   - reconstruction matrix: =64×64=
+   - =44= slices.
+   - =SliceThickness = 3 mm=
+   - =SpacingBetweenSlices = 3.3=
+
+   Detailed description:
+   - [[./ge-mr750-slice-timing]]
+
+   Raw DICOM data:
+   - [[https://raw.githubusercontent.com/nikadon/cc-dcm2bids-wrapper/master/dicom-qa-examples/ge-mr750-slice-timing/data/dicom---sub-human---6vols.tar.gz][dicom---sub-human---6vols.tar.gz]]
+   - =md5sum: 8988299cd7a74b8f524a1f9c24e1bae6=
+
+** Phase Encoding
+
+   Summary:
+    - four acquisitions with
+      - standard (=pepolar = 0=) and
+      - flipped (=pepolar = 1=)
+      /phase encoding polarity/ (=L➜R=, =R➜L=, =A➜P= and =P➜A=)
+
+   Detailed description:
+   - [[./ge-mr750-pepolarity]]
+
+   Raw DICOM data:
+   - [[https://raw.githubusercontent.com/nikadon/cc-dcm2bids-wrapper/master/dicom-qa-examples/ge-mr750-pepolarity/data/dicom---sub-human---pepolarity.tar.gz][dicom---sub-human---pepolarity.tar.gz]]
+   - =md5sum: a4abc98ac2be2f6a18653774d70ca742=

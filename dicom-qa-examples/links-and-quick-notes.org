@@ -1,0 +1,26 @@
+#+TITLE: Links and Quick Notes
+
+
+* Links
+
+  - https://github.com/rordenlab/dcm2niix/issues
+  - https://github.com/rordenlab/dcm2niix/releases/tag/v1.0.20180325
+  - https://github.com/rordenlab/dcm2niix/issues/163
+  - https://www.mccauslandcenter.sc.edu/crnl/tools/stc
+  - https://www.nitrc.org/plugins/mwiki/index.php/dcm2nii:MainPage#Slice_timing_correction
+  - https://drive.google.com/file/d/1ULITxqJ5SPn3OMKO1oV0daHaY4DEah4r/view
+  - https://neurostars.org/t/getting-missing-ge-information-required-by-bids-for-common-preprocessing/1357
+  - https://neurostars.org/t/dcm2nii-problem-with-slice-timing-metadata-extraction/1922
+  - https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5274797/
+  - https://github.com/ScottHaileRobertson/GE-MRI-Tools/blob/master/GePackage/%2BGE/%2BPfile/%2BHeader/%2BRDB15/imagedb.h
+  - https://cni.stanford.edu/wiki/GE_Processing
+  - https://en.wikibooks.org/wiki/Neuroimaging_Data_Processing/Slice_Timing
+  - https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/FEAT/UserGuide#Pre-Stats
+  - https://en.wikibooks.org/wiki/SPM/Slice_Timing
+
+* Quick notes
+
+  | Attribute Name     | Tag         | Type | Notes                                       | Comments |
+  |--------------------+-------------+------+---------------------------------------------+----------|
+  | =Trigger Time=       | (0018,1060) | 2C   | Always Sent. (even if value is zero length) |          |
+  | =FloatSlopRTIATimer= | (0021,105E) |      | =RTIA_timer=                                  |          |

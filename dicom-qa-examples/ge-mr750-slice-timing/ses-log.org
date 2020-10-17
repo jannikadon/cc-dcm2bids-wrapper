@@ -1,0 +1,52 @@
+CYBERCRAFT: Logging to: ses-log.org
+*** INFO
+    - O: =/home/cybercraft/cc/dat/varia/2018/q03/human-6vTests=
+    - N: =nifti=
+    - D: =dicom=
+    - P: =sub-*=
+    - E: =ses-*=
+    - S: =s*=
+    - F: =['i*MRDC*', 'i*SCPT*']=
+*** STANDARD TREE
+****    dicom/ (1 of 1)
+*****   dicom/sub-human/ (1 of 1)
+******  dicom/sub-human/ses-01vol6tests/ (1 of 1)
+******* dicom/sub-human/ses-01vol6tests/s742/ (1 of 8)
+******* dicom/sub-human/ses-01vol6tests/s743/ (2 of 8)
+******* dicom/sub-human/ses-01vol6tests/s744/ (3 of 8)
+******* dicom/sub-human/ses-01vol6tests/s745/ (4 of 8)
+******* dicom/sub-human/ses-01vol6tests/s746/ (5 of 8)
+******* dicom/sub-human/ses-01vol6tests/s747/ (6 of 8)
+******* dicom/sub-human/ses-01vol6tests/s748/ (7 of 8)
+******* dicom/sub-human/ses-01vol6tests/s749/ (8 of 8)
+*** DETAILED TREE
+    - dicom [dicom/]
+      - human [dicom/sub-human/]
+        - 01vol6tests [dicom/sub-human/ses-01vol6tests/]
+          - 742 [dicom/sub-human/ses-01vol6tests/s742/]
+            - i951581.MRDC.44 [dicom/sub-human/ses-01vol6tests/s742/i951581.MRDC.44]
+          - 743 [dicom/sub-human/ses-01vol6tests/s743/]
+            - i951845.MRDC.44 [dicom/sub-human/ses-01vol6tests/s743/i951845.MRDC.44]
+          - 744 [dicom/sub-human/ses-01vol6tests/s744/]
+            - i952109.MRDC.1 [dicom/sub-human/ses-01vol6tests/s744/i952109.MRDC.1]
+          - 745 [dicom/sub-human/ses-01vol6tests/s745/]
+            - i952373.MRDC.1 [dicom/sub-human/ses-01vol6tests/s745/i952373.MRDC.1]
+          - 746 [dicom/sub-human/ses-01vol6tests/s746/]
+            - i952637.MRDC.44 [dicom/sub-human/ses-01vol6tests/s746/i952637.MRDC.44]
+          - 747 [dicom/sub-human/ses-01vol6tests/s747/]
+            - i952901.MRDC.44 [dicom/sub-human/ses-01vol6tests/s747/i952901.MRDC.44]
+          - 748 [dicom/sub-human/ses-01vol6tests/s748/]
+            - i953165.MRDC.1 [dicom/sub-human/ses-01vol6tests/s748/i953165.MRDC.1]
+          - 749 [dicom/sub-human/ses-01vol6tests/s749/]
+            - i953429.MRDC.1 [dicom/sub-human/ses-01vol6tests/s749/i953429.MRDC.1]
+*** TABLE
+  |    | Path                                 |   NumFiles |   StudyID |   StudyDate |   StudyTime | PatientID   | PatientName   | ProtocolName             | SeriesDescription   |   SeriesNumber |   SeriesTime |
+  |----+--------------------------------------+------------+-----------+-------------+-------------+-------------+---------------+--------------------------+---------------------+----------------+--------------|
+  |  0 | dicom/sub-human/ses-01vol6tests/s742 |        264 |      1543 |    20180825 |      151045 | human       |               | JN_fPrint_rfMRI_2018_08_ | fMRI_rest6vTDseq1   |              7 |       153146 |
+  |  1 | dicom/sub-human/ses-01vol6tests/s743 |        264 |      1543 |    20180825 |      151045 | human       |               | JN_fPrint_rfMRI_2018_08_ | fMRI_rest6vBUseq1   |              8 |       153413 |
+  |  2 | dicom/sub-human/ses-01vol6tests/s744 |        264 |      1543 |    20180825 |      151045 | human       |               | JN_fPrint_rfMRI_2018_08_ | fMRI_rest6vTDseq44  |              9 |       153646 |
+  |  3 | dicom/sub-human/ses-01vol6tests/s745 |        264 |      1543 |    20180825 |      151045 | human       |               | JN_fPrint_rfMRI_2018_08_ | fMRI_rest6vBUseq44  |             10 |       153848 |
+  |  4 | dicom/sub-human/ses-01vol6tests/s746 |        264 |      1543 |    20180825 |      151045 | human       |               | JN_fPrint_rfMRI_2018_08_ | fMRI_rest6vTDint1   |             11 |       154042 |
+  |  5 | dicom/sub-human/ses-01vol6tests/s747 |        264 |      1543 |    20180825 |      151045 | human       |               | JN_fPrint_rfMRI_2018_08_ | fMRI_rest6vBUint1   |             13 |       154428 |
+  |  6 | dicom/sub-human/ses-01vol6tests/s748 |        264 |      1543 |    20180825 |      151045 | human       |               | JN_fPrint_rfMRI_2018_08_ | fMRI_rest6vTDint44  |             14 |       154603 |
+  |  7 | dicom/sub-human/ses-01vol6tests/s749 |        264 |      1543 |    20180825 |      151045 | human       |               | JN_fPrint_rfMRI_2018_08_ | fMRI_rest6vBUint44  |             15 |       154806 |

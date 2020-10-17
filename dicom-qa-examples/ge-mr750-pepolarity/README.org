@@ -1,0 +1,18 @@
+#+TITLE: GE MR750 =pepolar=
+
+
+* TODO Session overview
+** Raw =DICOM= data
+
+   - [[https://raw.githubusercontent.com/nikadon/cc-dcm2bids-wrapper/master/dicom-qa-examples/ge-mr750-pepolarity/data/dicom---sub-human---pepolarity.tar.gz][dicom---sub-human---pepolarity.tar.gz]]
+   - =md5sum: a4abc98ac2be2f6a18653774d70ca742=
+
+* TODO Screen-shot images
+
+
+  - [[./img/s07-pepolarity.jpg]]
+  - [[./img/s06-pepolarity.jpg]]
+  - [[./img/s05-pepolarity.jpg]]
+  - [[./img/s04-pepolarity.jpg]]
+  - [[./img/pepolarity-loc.jpg]]
+  - [[./img/pepolar0vs1.png]]
